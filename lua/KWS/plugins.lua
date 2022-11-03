@@ -77,8 +77,15 @@ return packer.startup(function(use)
     use ({ "glepnir/lspsaga.nvim", branch = "main" })
     use ("onsails/lspkind.nvim")
 
+    -- Markdown
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
+      })
+    --use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
     -- Uncategorized
-  	use "nvim-lua/popup.nvim" 	
+  	use ("nvim-lua/popup.nvim")
 	use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
   -- Automatically set up your configuration after cloning packer.nvim
