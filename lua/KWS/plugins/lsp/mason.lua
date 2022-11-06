@@ -15,12 +15,12 @@ mason.setup()
 mason_lspconfig.setup({
     -- list of servers for mason to install
 	ensure_installed = {
-        "clangd",                 -- C, C++
-        "jdtls",                  -- Java
-        "pyright",   -- Python
+        "clangd",       -- C, C++
+        "jdtls",		-- Java
+        "pyright",   	-- Python
 		"html",
 		"cssls",
-		"tsserver",               -- Javascript
+		"tsserver",		-- Javascript
 		"tailwindcss",
 		"sumneko_lua",
 	},
