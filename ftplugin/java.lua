@@ -10,8 +10,9 @@ if root_dir == "" then
   return
 end
 
-local workspace_dir = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 local home = os.getenv "HOME"
+
+local workspace_dir = home .. "/.local/share/eclipse" .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -36,8 +37,11 @@ local config = {
     -- 💀
     -- '-jar', '/Library/java/jdt-language-server-1.9.0-202203031534/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
     "-jar",
-    vim.fn.glob(home .. "/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    "~/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+    --vim.fn.glob(home .. "/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
          -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
+
+    "jdtls",
 
     -- 💀
     --'/Library/java/jdt-language-server-1.9.0-202203031534/config_mac/',
@@ -56,7 +60,9 @@ local config = {
   -- One dedicated LSP server & client will be started per unique root_dir
     --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew', 'pom.xml', 'build.xml'}),
     --root_dir = vim.fs.dirname(vim.fs.find({'.gradlew', '.git', 'mvnw'}, { upward = true })[1]),
-    root_dir = root_dir,
+  root_dir = root_dir,
+
+  single_file_support = true,
 
   -- Here you can configure eclipse.jdt.ls specific settings
   -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -79,4 +85,5 @@ local config = {
 }
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
---require('jdtls').start_or_attach(config)
+
+require('jdtls').start_or_attach(config)
