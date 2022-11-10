@@ -85,7 +85,7 @@ return packer.startup(function(use)
       })
 
     -- LaTex
-    use ("emakman/nvim-latex-previewer")
+    use ("lervag/vimtex")
 
     -- Uncategorized
   	use ("nvim-lua/popup.nvim")
