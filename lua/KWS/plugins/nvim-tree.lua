@@ -8,19 +8,10 @@ vim.g.loaded_netrwPlugin = 1
 vim.cmd("set splitright")
 vim.cmd("set splitright")
 
-vim.cmd[[hi NvimTreeNormal guibg=NONE ctermbg=NONE]]
+--vim.cmd[[hi NvimTreeNormal guibg=NONE ctermbg=NONE]]
 
 nvimtree.setup({
     view = {
-      mappings = {
-        list = {
-          -- open a file with vertical split by "s"
-          { key = "s", action = "vsplit" },
-
-          -- open a file with horizontal split by "u"
-          { key = "u", action = "split" },
-        }
-      }
     },
     -- change folder arrow icons
 	renderer = {
@@ -33,4 +24,11 @@ nvimtree.setup({
 			},
 		},
 	},
+    actions = {
+      open_file = {
+        window_picker = {
+          enable = false,
+        },
+      },
+    },
   })

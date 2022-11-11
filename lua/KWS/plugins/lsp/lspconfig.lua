@@ -99,3 +99,9 @@ lspconfig["sumneko_lua"].setup({
 		},
 	},
 })
+
+-- configure LaTeX server
+lspconfig["texlab"].setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+})
