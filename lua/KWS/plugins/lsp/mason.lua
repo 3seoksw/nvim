@@ -10,27 +10,16 @@ if not mason_lspconfig_status then
 	return
 end
 
+local servers = {
+    "clangd",       -- C, C++
+	"jdtls",		-- Java
+	"pyright",   	-- Python
+	"sumneko_lua",
+	"texlab",	    -- LaTeX
+}
+
 mason.setup()
-
 mason_lspconfig.setup({
-    -- list of servers for mason to install
-	ensure_installed = {
-        "clangd",       -- C, C++
-        "jdtls",		-- Java
-        "pyright",   	-- Python
-		"html",
-		"cssls",
-		"tsserver",		-- Javascript
-		"tailwindcss",
-		"sumneko_lua",
-		"texlab",			-- LaTeX
-	},
-	-- auto-install configured servers (with lspconfig)
-	automatic_installation = true, -- not the same as ensure_installed
-  })
-
--- import mason-null-ls plugin safely
-local mason_null_ls_status, mason_null_ls = pcall(require, "mason-null-ls")
-if not mason_null_ls_status then
-	return
-end
+	ensure_installed = servers,
+	automatic_installation = true,
+})

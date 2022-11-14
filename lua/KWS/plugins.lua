@@ -53,7 +53,6 @@ return packer.startup(function(use)
     use ("nvim-tree/nvim-web-devicons")
 
 	-- File Explorer
-  	use ("nvim-lua/plenary.nvim")
     use ("nvim-tree/nvim-tree.lua")
 
 	-- Syntax 
@@ -77,6 +76,9 @@ return packer.startup(function(use)
     use ({ "glepnir/lspsaga.nvim", branch = "main" })
     use ("onsails/lspkind.nvim")
     use ("mfussenegger/nvim-jdtls")
+    use ("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+    --use ({ "neoclide/coc.nvim", branch = "release" })
+
 
     -- Markdown
     use({
@@ -86,9 +88,11 @@ return packer.startup(function(use)
 
     -- LaTex
     use ("lervag/vimtex")
+    use ("xuhdev/vim-latex-live-preview")
 
     -- Uncategorized
   	use ("nvim-lua/popup.nvim")
+  	use ("nvim-lua/plenary.nvim")
 	use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
 
   -- Automatically set up your configuration after cloning packer.nvim

@@ -12,6 +12,12 @@ vim.cmd("set splitright")
 
 nvimtree.setup({
     view = {
+      mappings = {
+        list = {
+          { key = "s", action = "vsplit" },
+          { key = "u", action = "hsplit" },
+        },
+      },
     },
     -- change folder arrow icons
 	renderer = {

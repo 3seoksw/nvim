@@ -1,6 +1,6 @@
 local opts = { noremap = true, silent = true }
 
-local term_opts = {silent = true }
+local term_opts = { silent = true }
 
 local keymap = vim.api.nvim_set_keymap
 
@@ -16,3 +16,8 @@ keymap("n", "<esc>", ":nohlsearch <CR>", opts)
 
 -- nvim-tree
 keymap("n", "<leader>t", ":NvimTreeToggle<CR>", opts)
+
+-- VimTex
+keymap("n", "<leader>ll", ":VimtexCompile<CR>", opts)
+keymap("n", "<leader>li", ":VimtexInfo<CR>", opts)
+keymap("n", "<leader>lw", ":VimtexView<CR>", opts)

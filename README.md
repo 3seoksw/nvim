@@ -1,5 +1,10 @@
 # My Neovim Config Files
 
+### *NOTE*
+I gave up setting up java lsp (jdtls) so please be aware of it.  
+Seems like jdtls isn't stable as expected so it's just painful setting up for java development.  
+
+### Try this config
 This `main` branch is the current config setup so you can simply copy them and use it!
 
-***Up to 03NOV22***
+***Up to 15NOV22***

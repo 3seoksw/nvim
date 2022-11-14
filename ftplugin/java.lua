@@ -1,7 +1,19 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+if not status_cmp_ok then
+  return
+end
+capabilities.textDocument.completion.completionItem.snippetSupport = false
+capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+
 local status, jdtls = pcall(require, "jdtls")
 if not status then
   return
 end
+
+local home = os.getenv "HOME"
+WORKSPACE_PATH = home .. "/workspace/"
 
 -- Find root of a project
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle", "*.iml" }
@@ -10,9 +22,13 @@ if root_dir == "" then
   return
 end
 
-local home = os.getenv "HOME"
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
-local workspace_dir = home .. "/.local/share/eclipse" .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+
+--local workspace_dir = home .. "/.local/share/eclipse" .. vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
+local workspace_dir = WORKSPACE_PATH .. project_name
 
 -- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
@@ -34,14 +50,26 @@ local config = {
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
+    --"-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    --"-Dosgi.bundles.defaultStartLevel=4",
+    --"-Declipse.product=org.eclipse.jdt.ls.core.product",
+    --"-Dlog.protocol=true",
+    --"-Dlog.level=ALL",
+    --"-javaagent:" .. home .. "/.local/share/nvim/lsp_servers/jdtls/lombok.jar",
+    --"-Xms1g",
+    --"--add-modules=ALL-SYSTEM",
+    --"--add-opens",
+    --"java.base/java.util=ALL-UNNAMED",
+    --"--add-opens",
+    --"java.base/java.lang=ALL-UNNAMED",
+
     -- 💀
     -- '-jar', '/Library/java/jdt-language-server-1.9.0-202203031534/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
     "-jar",
-    "~/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar",
+    --"~/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar",
+    vim.fn.glob("~/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     --vim.fn.glob(home .. "/.local/share/nvim/lsp_servers/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
          -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
-
-    "jdtls",
 
     -- 💀
     --'/Library/java/jdt-language-server-1.9.0-202203031534/config_mac/',
@@ -52,8 +80,13 @@ local config = {
 
     -- 💀
     -- See `data directory configuration` section in the README
-    "-data", vim.fn.expand('~/.cache/jdtls-workspace') .. workspace_dir,
+    "-data",
+    workspace_dir,
+    --vim.fn.expand('~/.cache/jdtls-workspace') .. workspace_dir,
   },
+
+  on_attach = require("KWS.plugins.lsp.handlers").on_attach,
+  capabilities = capabilities,
 
   -- 💀
   -- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -69,7 +102,37 @@ local config = {
   -- for a list of options
   settings = {
     java = {
-    }
+      eclipse = {
+        downloadSources = true,
+      },
+      configuration = {
+        updateBuildConfiguration = "interactive",
+      },
+      maven = {
+        downloadSources = true,
+      },
+      implementationsCodeLens = {
+        enabled = true,
+      },
+      referencesCodeLens = {
+        enabled = true,
+      },
+      references = {
+        includeDecompiledSources = true,
+      },
+      inlayHints = {
+        parameterNames = {
+          enabled = "all", -- literals, all, none
+        },
+      },
+      format = {
+        enabled = false,
+        -- settings = {
+        --   profile = "asdf"
+        -- }
+      },
+    },
+    signatureHelp = { enabled = true },
   },
 
   -- Language server `initializationOptions`
@@ -86,4 +149,4 @@ local config = {
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 
-require('jdtls').start_or_attach(config)
+jdtls.start_or_attach(config)
