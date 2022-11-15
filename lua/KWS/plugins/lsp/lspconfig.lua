@@ -47,6 +47,7 @@ end
 lspconfig["clangd"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
+	"KWS.plugins.lsp.settings.clangd",
 })
 
 lspconfig["pyright"].setup({
@@ -97,7 +98,7 @@ lspconfig["sumneko_lua"].setup({
 lspconfig["texlab"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
-	"KWS.plugins.lsp.settings.texlab"
+	"KWS.plugins.lsp.settings.texlab",
 })
 
 lspconfig["jdtls"].setup({
