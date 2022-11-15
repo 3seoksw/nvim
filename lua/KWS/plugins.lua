@@ -79,7 +79,6 @@ return packer.startup(function(use)
     use ("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
     --use ({ "neoclide/coc.nvim", branch = "release" })
 
-
     -- Markdown
     use({
         "iamcco/markdown-preview.nvim",

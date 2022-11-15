@@ -11,7 +11,7 @@ vim.cmd("syntax enable")
 vim.g.vimtex_view_method = 'zathura'
 
 -- Or with a generic interface:
-vim.g.vimtex_view_general_viewer = 'okular'
+vim.g.vimtex_view_general_viewer = 'zathura'
 --vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
 vim.g.vimtex_view_general_options = "--unique file:@pdf\\#src:@line@tex"
 
