@@ -2,7 +2,7 @@ local cmp = require("cmp")
 cmp.setup.filetype("tex", {
     sources = cmp.config.sources({
         { name = "omni" },
-        { name = "luasnip" },
+        { name = "ultisnip" },
         {
             name = "buffer",
             option = {
