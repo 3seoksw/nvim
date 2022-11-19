@@ -6,7 +6,7 @@ end
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 vim.cmd("set splitright")
-vim.cmd("set splitright")
+--vim.cmd("set splitdown")
 
 --vim.cmd[[hi NvimTreeNormal guibg=NONE ctermbg=NONE]]
 
