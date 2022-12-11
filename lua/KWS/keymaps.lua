@@ -1,3 +1,4 @@
+M = {}
 local opts = { noremap = true, silent = true }
 
 local term_opts = { silent = true }
@@ -11,6 +12,9 @@ vim.g.maplocalleader = " "
 
 -- Press ESC to set nohlsearch mode
 keymap("n", "<esc>", ":nohlsearch <CR>", opts)
+
+keymap("n", "<C-d>", "<C-d>zz", opts)
+keymap("n", "<C-u>", "<C-u>zz", opts)
 
 -- Plugin Keymaps Below
 

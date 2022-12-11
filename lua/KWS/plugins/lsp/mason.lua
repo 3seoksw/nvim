@@ -40,7 +40,8 @@ for _, server in pairs(servers) do
 	server = vim.split(server, "@")[1]
 
 	if server == "clandg" then
-		local clangd_opts = require("KWS.plugins.lsp.handlers")
+		require"lspconfig".clangd.setup{}
+		local clangd_opts = require("KWS.plugins.lsp.settings.clangd")
 		opts = vim.tbl_deep_extend("force", clangd_opts, opts)
 	end
 
@@ -70,8 +71,12 @@ for _, server in pairs(servers) do
 	end
 	
 	if server == "texlab" then
-		local texlab_opts = require("KWS.plugins.lsp.settings.texlab")
-		opts = vim.tbl_deep_extend("force", texlab_opts, opts)
+		--local texlab_opts = require("KWS.plugins.lsp.settings.texlab")
+		--opts = vim.tbl_deep_extend("force", texlab_opts, opts)
+		lspconfig["texlab"].setup{
+			capabilities = capabilities,
+			on_attach = on_attach
+		}
 	end
 	
 	if server == "jdtls" then
